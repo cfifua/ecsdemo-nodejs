@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ecsdemo-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx # make sure to add this
+    external-dns.alpha.kubernetes.io/hostname: ecsdemo.us-west-1.eks.stable.tools.openvpn.in
+spec:
+  rules:
+    - host: ecsdemo.us-west-1.eks.stable.tools.openvpn.in
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ecsdemo-nodejs
+                port:
+                  number: 80
+
+
